@@ -239,7 +239,7 @@
     <header>
         <h1>📝 Scratchpad Prompt Library</h1>
         <p>Browse, copy, and download prompts for your scratchpad</p>
-        <a href="https://github.com/GuyLibros/prompt-library" class="github-link" target="_blank">
+        <a href="https://github.com/yourusername/prompt-library" class="github-link" target="_blank">
             📁 View on GitHub
         </a>
     </header>
@@ -251,7 +251,7 @@
             <div class="quick-actions">
                 <button onclick="downloadAllPrompts()">📦 Download All Prompts (JSON)</button>
                 <button onclick="downloadAllPromptsText()">📄 Download All Prompts (Markdown)</button>
-                <button onclick="window.open('https://github.com/GuyLibros/prompt-library/tree/main/prompts', '_blank')">
+                <button onclick="window.open('https://github.com/yourusername/prompt-library/tree/main/prompts', '_blank')">
                     🔗 Browse Repository
                 </button>
             </div>
@@ -269,10 +269,11 @@
     <script>
         // YOUR PROMPTS DATA - EDIT THIS SECTION TO ADD YOUR OWN PROMPTS
         const prompts = [
+            // TEMPLATES - User fills in the brackets
             {
-                title: "Code Review",
+                title: "Code Review Template",
                 category: "Development",
-                description: "A structured approach to reviewing code changes",
+                description: "A structured approach to reviewing code changes (fill in brackets)",
                 content: `Review the following code:
 
 1. Check for bugs and errors
@@ -282,9 +283,9 @@
 5. Verify test coverage`
             },
             {
-                title: "Meeting Notes",
+                title: "Meeting Notes Template",
                 category: "Productivity",
-                description: "Template for organizing meeting discussions",
+                description: "Template for organizing meeting discussions (fill in brackets)",
                 content: `Meeting: [Topic]
 Date: [Date]
 
@@ -306,9 +307,9 @@ Action Items:
 Next Steps:`
             },
             {
-                title: "Debug Assistant",
+                title: "Debug Assistant Template",
                 category: "Development",
-                description: "Systematic debugging approach",
+                description: "Systematic debugging approach (fill in brackets)",
                 content: `Help me debug this issue:
 
 Problem: [Describe the issue]
@@ -327,51 +328,371 @@ Error messages: [Paste any errors]
 What I've tried:
 - `
             },
+            
+            // READY-TO-USE - Scratchpad steps already configured
             {
-                title: "Brainstorming",
-                category: "Creative",
-                description: "Generate ideas on any topic",
-                content: `Let's brainstorm ideas for: [topic]
+                title: "Python Code Explainer",
+                category: "Development",
+                description: "Analyze and explain Python code with scratchpad steps configured",
+                content: `<task>Analyze this Python code and provide a detailed explanation</task>
 
-Goals:
-- 
+<scratchpad>
+<step>Read through the entire code to understand its overall purpose</step>
+<step>Identify the main functions and their roles</step>
+<step>Trace the data flow through the code</step>
+<step>Note any algorithms or design patterns used</step>
+<step>Identify potential issues or improvements</step>
+<step>Prepare a clear explanation with examples</step>
+</scratchpad>
 
-Constraints:
-- 
+Please analyze the following Python code:
 
-Target audience:
-- 
-
-Generate 10 creative ideas, focusing on innovation and feasibility.`
-            },
-            {
-                title: "Text Summarizer",
-                category: "Productivity",
-                description: "Condense long text into key points",
-                content: `Summarize the following text:
-
-[Paste text here]
+[PASTE YOUR CODE HERE]
 
 Provide:
-1. A one-sentence summary
-2. Key points (3-5 bullet points)
-3. Main takeaways`
+1. A high-level overview of what the code does
+2. Line-by-line or section-by-section explanation
+3. Key algorithms or patterns used
+4. Potential improvements or issues
+5. Example usage if applicable`
             },
             {
-                title: "Email Draft",
+                title: "Research Paper Summarizer",
+                category: "Productivity",
+                description: "Summarize academic papers with structured analysis steps",
+                content: `<task>Summarize this research paper comprehensively</task>
+
+<scratchpad>
+<step>Identify the research question and hypothesis</step>
+<step>Extract the methodology used</step>
+<step>Note the key findings and results</step>
+<step>Evaluate the conclusions and implications</step>
+<step>Identify limitations and future work</step>
+<step>Synthesize into a clear summary</step>
+</scratchpad>
+
+Please summarize the following research paper:
+
+[PASTE PAPER TEXT OR KEY SECTIONS HERE]
+
+Provide:
+1. Research Question: What problem is being addressed?
+2. Methodology: How was the research conducted?
+3. Key Findings: What were the main results?
+4. Conclusions: What do the authors conclude?
+5. Significance: Why does this matter?
+6. Limitations: What are the acknowledged constraints?`
+            },
+            {
+                title: "Essay Feedback Generator",
+                category: "Education",
+                description: "Provide structured feedback on student essays with evaluation steps",
+                content: `<task>Provide comprehensive feedback on this student essay</task>
+
+<scratchpad>
+<step>Read the entire essay to understand the main argument</step>
+<step>Evaluate the thesis statement and introduction</step>
+<step>Assess the organization and paragraph structure</step>
+<step>Check evidence and support for claims</step>
+<step>Review grammar, style, and clarity</step>
+<step>Identify strengths and areas for improvement</step>
+<step>Formulate constructive feedback with specific examples</step>
+</scratchpad>
+
+Student Essay:
+
+[PASTE ESSAY HERE]
+
+Please provide feedback on:
+
+1. **Thesis & Argument** (Is the main argument clear and well-developed?)
+2. **Organization** (Is the essay well-structured with logical flow?)
+3. **Evidence & Support** (Are claims backed by appropriate evidence?)
+4. **Writing Quality** (Grammar, style, clarity)
+5. **Strengths** (What does the student do well?)
+6. **Areas for Improvement** (Specific suggestions with examples)
+7. **Grade Recommendation** (If applicable)`
+            },
+            {
+                title: "Meeting Action Items Extractor",
+                category: "Productivity",
+                description: "Extract and organize action items from meeting notes with processing steps",
+                content: `<task>Extract all action items and decisions from these meeting notes</task>
+
+<scratchpad>
+<step>Read through all meeting notes</step>
+<step>Identify all explicit action items and tasks</step>
+<step>Note all decisions made</step>
+<step>Extract any deadlines or timeframes mentioned</step>
+<step>Identify who is responsible for each action</step>
+<step>Organize items by priority and urgency</step>
+<step>Format into a clear, actionable list</step>
+</scratchpad>
+
+Meeting Notes:
+
+[PASTE MEETING NOTES HERE]
+
+Please extract and organize:
+
+## Action Items
+- [ ] [Action] - Assigned to: [Person] - Due: [Date] - Priority: [High/Medium/Low]
+
+## Decisions Made
+- [Decision and rationale]
+
+## Follow-up Items
+- [Items needing clarification or future discussion]
+
+## Key Deadlines
+- [Date]: [What needs to be completed]`
+            },
+            {
+                title: "Bug Report Analyzer",
+                category: "Development",
+                description: "Analyze bug reports and suggest solutions with debugging steps",
+                content: `<task>Analyze this bug report and provide solutions</task>
+
+<scratchpad>
+<step>Read the bug description and understand the issue</step>
+<step>Identify the expected vs actual behavior</step>
+<step>Review error messages and stack traces</step>
+<step>Consider possible root causes</step>
+<step>Think through potential solutions</step>
+<step>Prioritize solutions by likelihood and ease</step>
+<step>Formulate clear debugging steps and fixes</step>
+</scratchpad>
+
+Bug Report:
+
+[PASTE BUG REPORT HERE]
+
+Please provide:
+
+1. **Issue Summary**: Brief description of the problem
+2. **Root Cause Analysis**: What's likely causing this?
+3. **Immediate Solutions**: Quick fixes to try first
+4. **Long-term Solutions**: Proper fixes for the underlying issue
+5. **Debugging Steps**: How to investigate further if needed
+6. **Prevention**: How to avoid this in the future`
+            },
+            {
+                title: "Lesson Plan Generator",
+                category: "Education",
+                description: "Create detailed lesson plans with structured planning steps",
+                content: `<task>Create a comprehensive lesson plan for this topic</task>
+
+<scratchpad>
+<step>Identify the learning objectives and outcomes</step>
+<step>Consider the student level and prior knowledge</step>
+<step>Design engaging introduction/hook</step>
+<step>Plan main instructional activities</step>
+<step>Create checks for understanding</step>
+<step>Design practice activities and assessments</step>
+<step>Plan closure and homework/extension activities</step>
+</scratchpad>
+
+Topic: [ENTER TOPIC HERE]
+Grade Level: [ENTER GRADE/LEVEL]
+Duration: [ENTER TIME, e.g., 50 minutes]
+
+Please create a lesson plan including:
+
+## Learning Objectives
+- Students will be able to...
+
+## Materials Needed
+- List of required materials
+
+## Introduction (5-10 min)
+- Hook/engagement activity
+- Connection to prior learning
+
+## Instruction (20-30 min)
+- Main teaching activities
+- Examples and demonstrations
+- Guided practice
+
+## Assessment/Check for Understanding
+- Formative assessment strategies
+- Questions to ask
+
+## Practice Activities (15-20 min)
+- Independent or group work
+- Differentiation strategies
+
+## Closure (5 min)
+- Summary and review
+- Preview of next lesson
+
+## Homework/Extensions
+- Additional practice or enrichment`
+            },
+            {
+                title: "Email Tone Analyzer",
                 category: "Communication",
-                description: "Professional email template",
-                content: `Draft an email for:
+                description: "Analyze email tone and suggest improvements with review steps",
+                content: `<task>Analyze the tone of this email and suggest improvements</task>
 
-To: [Recipient]
-Purpose: [Reason for email]
-Tone: [Professional/Casual/Formal]
+<scratchpad>
+<step>Read the email and identify the intended audience</step>
+<step>Assess the current tone (formal, casual, aggressive, friendly, etc.)</step>
+<step>Identify phrases that may be misinterpreted</step>
+<step>Consider the context and relationship between sender/receiver</step>
+<step>Evaluate clarity and professionalism</step>
+<step>Formulate specific suggestions for improvement</step>
+</scratchpad>
 
-Key points to cover:
-- 
-- 
+Email Draft:
 
-Desired outcome:`
+[PASTE EMAIL HERE]
+
+Context: [Who is this to? What's the situation?]
+
+Please analyze:
+
+1. **Current Tone**: How does this email come across?
+2. **Potential Issues**: Phrases or sections that could be problematic
+3. **Clarity**: Is the message clear and easy to understand?
+4. **Professionalism**: Is the tone appropriate for the relationship?
+5. **Suggested Revisions**: Specific rewrites for problem areas
+6. **Improved Version**: A rewritten version with better tone`
+            },
+            {
+                title: "Data Analysis Report Generator",
+                category: "Productivity",
+                description: "Analyze data and create reports with structured analysis steps",
+                content: `<task>Analyze this data and create a comprehensive report</task>
+
+<scratchpad>
+<step>Review all data points and understand the dataset</step>
+<step>Identify key metrics and trends</step>
+<step>Calculate relevant statistics (mean, median, outliers)</step>
+<step>Look for patterns, correlations, or anomalies</step>
+<step>Consider context and what the data means</step>
+<step>Formulate insights and actionable recommendations</step>
+<step>Structure findings in a clear, logical report</step>
+</scratchpad>
+
+Data:
+
+[PASTE DATA OR DESCRIBE DATASET HERE]
+
+Question/Goal: [What are you trying to understand?]
+
+Please provide a report including:
+
+## Executive Summary
+- Key findings in 2-3 sentences
+
+## Data Overview
+- What data was analyzed
+- Time period, sample size, etc.
+
+## Key Metrics
+- Important numbers and statistics
+
+## Trends & Patterns
+- What the data shows over time or across categories
+
+## Insights
+- What does this mean? Why is it happening?
+
+## Recommendations
+- Actionable steps based on the analysis
+
+## Limitations
+- Data gaps or caveats to consider`
+            },
+            {
+                title: "Creative Story Brainstormer",
+                category: "Creative",
+                description: "Generate creative story ideas with structured ideation steps",
+                content: `<task>Generate creative story ideas based on these parameters</task>
+
+<scratchpad>
+<step>Understand the genre and target audience</step>
+<step>Consider interesting character archetypes and conflicts</step>
+<step>Think about unique settings or world-building elements</step>
+<step>Brainstorm plot hooks and twists</step>
+<step>Combine elements in unexpected ways</step>
+<step>Evaluate ideas for originality and engagement</step>
+<step>Develop the most promising concepts</step>
+</scratchpad>
+
+Story Parameters:
+
+Genre: [e.g., Science Fiction, Fantasy, Mystery]
+Target Audience: [e.g., Young Adult, Adult]
+Themes: [e.g., redemption, identity, survival]
+Setting Preference: [e.g., futuristic, historical, contemporary]
+
+Please generate:
+
+## Story Concept 1
+- **Title**: 
+- **Logline**: One-sentence pitch
+- **Main Character**: Brief description
+- **Central Conflict**: What's at stake?
+- **Unique Hook**: What makes this different?
+
+## Story Concept 2
+[Same structure]
+
+## Story Concept 3
+[Same structure]
+
+## Story Concept 4
+[Same structure]
+
+## Story Concept 5
+[Same structure]
+
+For each concept, include potential plot points or directions the story could take.`
+            },
+            {
+                title: "Code Optimization Analyzer",
+                category: "Development",
+                description: "Analyze code for optimization opportunities with review steps",
+                content: `<task>Analyze this code and suggest optimizations</task>
+
+<scratchpad>
+<step>Read and understand the code's purpose</step>
+<step>Identify the current time and space complexity</step>
+<step>Look for redundant operations or calculations</step>
+<step>Check for inefficient data structures or algorithms</step>
+<step>Consider caching, memoization, or lazy evaluation opportunities</step>
+<step>Evaluate database queries or I/O operations</step>
+<step>Formulate specific optimization recommendations</step>
+</scratchpad>
+
+Code to Optimize:
+
+[PASTE CODE HERE]
+
+Context: [What does this code do? Any performance issues?]
+
+Please provide:
+
+## Current Analysis
+1. **Time Complexity**: Big O notation
+2. **Space Complexity**: Memory usage
+3. **Bottlenecks**: Slowest parts identified
+
+## Optimization Opportunities
+1. **Algorithm Improvements**: Better approaches
+2. **Data Structure Changes**: More efficient structures
+3. **Code-Level Optimizations**: Specific line changes
+4. **Caching Strategies**: What could be cached
+
+## Optimized Code
+[Provide rewritten version with improvements]
+
+## Performance Impact
+- Expected improvement (e.g., "50% faster", "reduces memory by 30%")
+
+## Trade-offs
+- Any drawbacks of the optimizations (complexity, readability, etc.)`
             }
         ];
 
