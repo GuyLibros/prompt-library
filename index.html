@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scratchpad Prompt Library</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            opacity: 0.9;
+        }
+
+        .github-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1.5rem;
+            background: #ffffff;
+            color: #2c3e50;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .github-link:hover {
+            background: #ecf0f1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .info-banner {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid #3498db;
+        }
+
+        .info-banner h2 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .info-banner p {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .quick-actions button {
+            padding: 0.5rem 1rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: background 0.3s;
+        }
+
+        .quick-actions button:hover {
+            background: #2980b9;
+        }
+
+        .search-box {
+            margin-bottom: 2rem;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .prompts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .prompt-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .prompt-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .prompt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .prompt-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2c3e50;
+            flex: 1;
+        }
+
+        .category-tag {
+            background: #3498db;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            margin-left: 0.5rem;
+        }
+
+        .prompt-description {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .prompt-content {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #2c3e50;
+            max-height: 150px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .copy-btn, .download-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .copy-btn {
+            background: #3498db;
+            color: white;
+        }
+
+        .copy-btn:hover {
+            background: #2980b9;
+        }
+
+        .copy-btn.copied {
+            background: #27ae60;
+        }
+
+        .download-btn {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .download-btn:hover {
+            background: #7f8c8d;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 768px) {
+            .prompts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📝 Scratchpad Prompt Library</h1>
+        <p>Browse, copy, and download prompts for your scratchpad</p>
+        <a href="https://github.com/yourusername/prompt-library" class="github-link" target="_blank">
+            📁 View on GitHub
+        </a>
+    </header>
+
+    <div class="container">
+        <div class="info-banner">
+            <h2>🚀 Quick Access</h2>
+            <p>Download individual prompts or get the entire collection from our GitHub repository.</p>
+            <div class="quick-actions">
+                <button onclick="downloadAllPrompts()">📦 Download All Prompts (JSON)</button>
+                <button onclick="downloadAllPromptsText()">📄 Download All Prompts (Markdown)</button>
+                <button onclick="window.open('https://github.com/yourusername/prompt-library/tree/main/prompts', '_blank')">
+                    🔗 Browse Repository
+                </button>
+            </div>
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search prompts by title, description, or category...">
+        </div>
+
+        <div class="prompts-grid" id="promptsGrid">
+            <!-- Prompts will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // YOUR PROMPTS DATA - EDIT THIS SECTION TO ADD YOUR OWN PROMPTS
+        const prompts = [
+            {
+                title: "Code Review",
+                category: "Development",
+                description: "A structured approach to reviewing code changes",
+                content: `Review the following code:
+
+1. Check for bugs and errors
+2. Evaluate code style and readability
+3. Assess performance implications
+4. Suggest improvements
+5. Verify test coverage`
+            },
+            {
+                title: "Meeting Notes",
+                category: "Productivity",
+                description: "Template for organizing meeting discussions",
+                content: `Meeting: [Topic]
+Date: [Date]
+
+Attendees:
+- 
+
+Agenda:
+1. 
+2. 
+3. 
+
+Discussion Points:
+- 
+
+Action Items:
+- [ ] 
+- [ ] 
+
+Next Steps:`
+            },
+            {
+                title: "Debug Assistant",
+                category: "Development",
+                description: "Systematic debugging approach",
+                content: `Help me debug this issue:
+
+Problem: [Describe the issue]
+
+Expected behavior: [What should happen]
+
+Actual behavior: [What is happening]
+
+Steps to reproduce:
+1. 
+2. 
+3. 
+
+Error messages: [Paste any errors]
+
+What I've tried:
+- `
+            },
+            {
+                title: "Brainstorming",
+                category: "Creative",
+                description: "Generate ideas on any topic",
+                content: `Let's brainstorm ideas for: [topic]
+
+Goals:
+- 
+
+Constraints:
+- 
+
+Target audience:
+- 
+
+Generate 10 creative ideas, focusing on innovation and feasibility.`
+            },
+            {
+                title: "Text Summarizer",
+                category: "Productivity",
+                description: "Condense long text into key points",
+                content: `Summarize the following text:
+
+[Paste text here]
+
+Provide:
+1. A one-sentence summary
+2. Key points (3-5 bullet points)
+3. Main takeaways`
+            },
+            {
+                title: "Email Draft",
+                category: "Communication",
+                description: "Professional email template",
+                content: `Draft an email for:
+
+To: [Recipient]
+Purpose: [Reason for email]
+Tone: [Professional/Casual/Formal]
+
+Key points to cover:
+- 
+- 
+
+Desired outcome:`
+            }
+        ];
+
+        // Render all prompts
+        function renderPrompts(filteredPrompts) {
+            const grid = document.getElementById('promptsGrid');
+            
+            if (filteredPrompts.length === 0) {
+                grid.innerHTML = '<div class="no-results">No prompts found. Try a different search term.</div>';
+                return;
+            }
+
+            grid.innerHTML = filteredPrompts.map((prompt, index) => `
+                <div class="prompt-card">
+                    <div class="prompt-header">
+                        <div class="prompt-title">${prompt.title}</div>
+                        <div class="category-tag">${prompt.category}</div>
+                    </div>
+                    <div class="prompt-description">${prompt.description}</div>
+                    <div class="prompt-content">${prompt.content}</div>
+                    <div class="card-actions">
+                        <button class="copy-btn" onclick="copyPrompt(${index}, this)">Copy</button>
+                        <button class="download-btn" onclick="downloadPrompt(${index})">Download</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Copy prompt to clipboard
+        function copyPrompt(index, button) {
+            const prompt = prompts[index];
+            navigator.clipboard.writeText(prompt.content).then(() => {
+                button.textContent = '✓ Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Download individual prompt as markdown file
+        function downloadPrompt(index) {
+            const prompt = prompts[index];
+            const filename = prompt.title.toLowerCase().replace(/\s+/g, '-') + '.md';
+            const content = `# ${prompt.title}
+
+**Category:** ${prompt.category}  
+**Description:** ${prompt.description}
+
+---
+
+${prompt.content}`;
+            downloadFile(content, filename, 'text/markdown');
+        }
+
+        // Download all prompts as JSON
+        function downloadAllPrompts() {
+            const json = JSON.stringify(prompts, null, 2);
+            downloadFile(json, 'prompts-library.json', 'application/json');
+        }
+
+        // Download all prompts as markdown
+        function downloadAllPromptsText() {
+            let content = '# Scratchpad Prompt Library\n\n';
+            content += 'A comprehensive collection of AI scratchpad prompts.\n\n';
+            content += '---\n\n';
+            
+            prompts.forEach((prompt, index) => {
+                content += `## ${index + 1}. ${prompt.title}\n\n`;
+                content += `**Category:** ${prompt.category}  \n`;
+                content += `**Description:** ${prompt.description}\n\n`;
+                content += '```\n' + prompt.content + '\n```\n\n';
+                content += '---\n\n';
+            });
+            downloadFile(content, 'prompts-library.md', 'text/markdown');
+        }
+
+        // Helper function to download files
+        function downloadFile(content, filename, type) {
+            const blob = new Blob([content], { type: type });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = prompts.filter(prompt => 
+                prompt.title.toLowerCase().includes(searchTerm) ||
+                prompt.description.toLowerCase().includes(searchTerm) ||
+                prompt.category.toLowerCase().includes(searchTerm) ||
+                prompt.content.toLowerCase().includes(searchTerm)
+            );
+            renderPrompts(filtered);
+        });
+
+        // Initial render
+        renderPrompts(prompts);
+    </script>
+</body>
+</html>
